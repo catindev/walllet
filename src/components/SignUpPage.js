@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
+import InnerPageLayout from "./InnerPageLayout/InnerPageLayout";
 
 const SignUpPage = () => {
   const { isAuthenticated, login } = useAuth();
@@ -21,19 +22,29 @@ const SignUpPage = () => {
   };
 
   return (
-    <div>
-      <h1>Sign up</h1>
-      <form onSubmit={handleSubmit}>
-        <input 
-          type="text" 
-          placeholder="Phone" 
-          value={phone} 
-          onChange={(e) => setPhone(e.target.value)} 
-        />
-        <button type="submit">Send SMS</button>
-      </form>
-      {error && <div>{error}</div>}
-    </div>
+    <InnerPageLayout title="Создать кошелек" backURL="/">
+      <div className="Form__wrapper">
+        <form className="Form" onSubmit={handleSubmit}>
+          <div className="Form__header">
+            <h1>Зарегистрируйтесь</h1>
+            <h2>Введите номер вашего телефона</h2>
+            {error && <h2>{error}</h2>}
+          </div>
+          <div className="Form__group">
+            <label htmlFor="login">Номер телефона</label>
+            <input
+              type="text"
+              placeholder="Phone"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
+          </div>
+          <div className="Form__footer">
+            <button type="submit">Отправить SMS</button>
+          </div>
+        </form>
+      </div>
+    </InnerPageLayout>
   );
 };
 
