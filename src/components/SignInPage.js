@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
+import InnerPageLayout from "./InnerPageLayout/InnerPageLayout";
 
 const SignInPage = () => {
   const { isAuthenticated, SignIn, login } = useAuth();
@@ -22,25 +23,39 @@ const SignInPage = () => {
   };
 
   return (
-    <div>
-      <h1>Sign in</h1>
-      <form onSubmit={handleSubmit}>
-        <input 
-          type="text" 
-          placeholder="Username" 
-          value={username} 
-          onChange={(e) => setUsername(e.target.value)} 
-        />
-        <input 
-          type="password" 
-          placeholder="Password" 
-          value={password} 
-          onChange={(e) => setPassword(e.target.value)} 
-        />
-        <button type="submit">Sign in</button>
-      </form>
-      {error && <div>{error}</div>}
-    </div>
+    <InnerPageLayout title="Войти в кошелек" backURL="/">
+      <div className="Form__wrapper">
+        <form className="Form" onSubmit={handleSubmit}>
+          <div className="Form__header">
+            <h1>Представьтесь</h1>
+            {error && <h2>{error}</h2>}
+          </div>
+          <div className="Form__group">
+            <label htmlFor="login">Логин</label>
+            <input type="text" 
+              id="login"
+              placeholder="Номер телефона или эл. почта" 
+              value={username} 
+              onChange={(e) => setUsername(e.target.value)} 
+              required
+            />
+          </div>
+          <div className="Form__group">
+            <label htmlFor="password">Пароль</label>
+            <input 
+              type="password" 
+              id="password"
+              value={password} 
+              onChange={(e) => setPassword(e.target.value)} 
+              required
+            />
+          </div>
+          <div className="Form__footer">
+            <button type="submit">Войти</button>
+          </div>
+        </form>
+      </div>
+    </InnerPageLayout>
   );
 };
 

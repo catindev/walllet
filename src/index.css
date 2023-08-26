@@ -8,6 +8,8 @@
 :root {
   --brand-dark: #595B79; 
   --brand-light: #F3F1ED;
+  --brand-dark-rgb: 89, 91, 121;
+  --brand-text: #363849;
   
   --full-height: 100%;
 
