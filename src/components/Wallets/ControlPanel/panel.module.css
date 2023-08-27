@@ -1,0 +1,6 @@
+.panel {
+    display: flex;
+    flex-direction: column;
+    padding: 0 1em;
+    gap: 1em;
+}

@@ -1,0 +1,19 @@
+.button {
+    gap: .5em;
+    width: 100%;
+    padding: 1em;
+    border-radius: 10px 25px 10px 10px;  
+}
+
+.title {
+    font-size: 1.8em;
+    color: rgba(var(--brand-dark-rgb), 0.8);
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;    
+}
+
+.icon {
+    width: 168px;
+    height: 91px;
+}

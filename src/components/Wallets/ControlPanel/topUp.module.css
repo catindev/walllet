@@ -1,0 +1,26 @@
+.button{
+    width: 80%;
+    gap: .25em;
+    padding: 1em;
+    border-radius: 25px 10px 10px 10px;
+}
+
+.icon {
+    width: 80px;
+    height: 80px;
+}
+
+.text {
+    color: rgba(var(--brand-dark-rgb), 0.65);
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.title{
+    font-size: 1.5em;
+}
+
+.subtitle {
+    font-size: 1em;
+}

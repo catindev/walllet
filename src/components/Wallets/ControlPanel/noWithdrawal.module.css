@@ -1,0 +1,40 @@
+.button {
+    gap: .5em;
+    width: 70%;
+    padding: 1em;
+    border-radius: 10px 40px 10px 10px;
+    border: 3px solid var(--brand-danger);
+    background: rgba(243, 241, 237, 0.85);
+    box-shadow: none;
+}
+
+.title {
+    color: rgba(var(--brand-danger-rgb), 0.65);
+    font-size: 1.25em;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.subtitle {
+    padding: .5em 0;
+    color: rgba(var(--brand-danger-rgb), 0.65);
+    font-size: .85em;
+    font-weight: 500;
+    line-height: 1;
+}
+
+.icon {
+    width: 155px;
+    height: 63px;
+}
+
+@media screen and (min-width: 1024px) { 
+    .title {
+        font-size: 1.5em;
+    }
+
+    .subtitle {
+        font-size: 1em;
+    }
+}

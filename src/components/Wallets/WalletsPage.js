@@ -4,6 +4,7 @@ import { useAuth } from '../../AuthContext';
 import { getWallets } from '../../api';
 import InnerPageLayout from "../InnerPageLayout/InnerPageLayout";
 import Wallets from "./Wallets";
+import ControlPanel from "./ControlPanel/ControlPanel"
 
 import styles from "./wallets.module.css";
 
@@ -36,8 +37,11 @@ const WalletsPage = () => {
 
   return (
     <InnerPageLayout type="home" user={user.agent?.full_name} showPreloader={fetchingWallets}>
-      <div className={styles.wallets}>
-        <Wallets list={wallets}/>
+      <div className={[styles.container,"full-height"].join(" ")}>
+        <div className={styles.wallets}>
+          <Wallets list={wallets}/>
+        </div>
+        <ControlPanel userStatus={user.agent?.status}/>
       </div>
     </InnerPageLayout>
   );

@@ -1,0 +1,40 @@
+.panel {
+    display: flex;
+    flex-direction: column;
+    padding: 1em 1em;
+    gap: 1em;
+}
+
+.button {
+    display: flex;
+    flex-direction: column;
+
+    border: 3px solid rgba(89, 91, 121, 0.15);
+    background: #F3F3F3;
+    box-shadow: 0px 3px 20px 0px rgba(158, 157, 189, 0.50); 
+    
+    text-decoration: none;
+    cursor: pointer;
+    overflow: hidden;     
+}
+
+.topGroup {
+    display: flex;
+    width: 100%;
+    gap: 1em;
+    justify-content: center;
+}
+
+@media screen and (min-width: 1024px) {
+    .panel {
+        padding: 0 1em;
+    }
+
+    .button {
+        box-shadow: none;
+        transition: all 0.2s ease;
+    } 
+    .button:hover {
+        box-shadow: 0px 3px 10px 0px rgba(158, 157, 189, 0.25);
+    } 
+}
