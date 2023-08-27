@@ -34,7 +34,7 @@ const SignUpPage = () => {
             <label htmlFor="login">Номер телефона</label>
             <input
               type="text"
-              placeholder="Phone"
+              placeholder="Без +7. Только цифры. Например: 77051112233"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
             />

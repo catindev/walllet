@@ -10,6 +10,7 @@
   --brand-light: #F3F1ED;
   --brand-dark-rgb: 89, 91, 121;
   --brand-text: #363849;
+  --brand-text-rgb: 54, 56, 73;
   
   --full-height: 100%;
 
@@ -42,4 +43,72 @@ a {
 .full-height {
   height: var(--full-height);
   min-height: var(--full-height);
+}
+
+.pageFadeIn {
+  animation: .5s fadeIn forwards;
+  animation-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.pageFadeOut {
+  animation: 0.3s fadeOut forwards;
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translate(-1000px, 0);
+  }
+
+  to {  
+      opacity: 1;
+      transform: translate(0px, 0px);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+      opacity: 1;
+      transform: translate(0px, 0px);
+  }
+
+  to {
+      opacity: 0;
+      transform: translate(-1000px, 0);
+  }
+}
+
+@media (min-width: 1024px) {
+  .pageFadeIn {
+    animation: 0.4s fadeIn forwards;
+    animation-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+  }
+  
+  .pageFadeOut {
+    animation: 0.1s fadeOut forwards;
+  }
+  
+  @keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(0, -1000px);
+    }
+  
+    to {
+        opacity: 1;
+        transform: translate(0px, 0px);
+    }
+  }
+  
+  @keyframes fadeOut {
+    from {
+        opacity: 1;
+        /* transform: translate(0px, 0px); */
+    }
+  
+    to {
+        opacity: 0;
+        /* transform: translate(0, -1000px); */
+    }
+  }
 }

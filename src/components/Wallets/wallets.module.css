@@ -1,0 +1,16 @@
+.wallets {
+    display: flex;
+    gap: 1em;
+    width: 100%;
+    flex-direction: column;
+    padding: 1em;
+
+    border: var(--test-border-dotted);
+    border-color: red;
+}
+
+@media (min-width: 1024px) { 
+    .wallets {
+        padding: 2em 1em;
+    } 
+}
