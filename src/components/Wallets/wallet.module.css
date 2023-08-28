@@ -38,7 +38,7 @@
 .info {
     display: flex;
     flex-direction: column;
-    gap: .2em;
+    gap: .5em;
 }
 
 .description {
@@ -58,7 +58,7 @@
 
 .value {
     color: rgba(var(--brand-text-rgb), 0.85);
-    font-size: 3em;
+    font-size: 2em;
     font-style: normal;
     font-weight: 900;
     line-height: 1;

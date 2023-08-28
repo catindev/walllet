@@ -3,13 +3,20 @@ import axios from 'axios';
 let BASE_URL = "https://api.ems.test.emoney.tools";
 if (process.env.REACT_APP_BASE_URL) BASE_URL = process.env.REACT_APP_BASE_URL;
 
-export const wtfError = error => {
-  if (error.response.status === 403) {
-      localStorage.removeItem('appToken');
-      window.location.href = "/";
-      return;
-  }
+// API error_code
+export const errors = {
+  0: {
+    title: "Неизвестная ошибка",
+    message: "Сделайте скриншот и отправьте его в нашу тех. поддержку"
+  },
 
+  3: {
+    title: "Неверный логин или пароль",
+    message: "Проверьте правильно ли вы вводите данные. Если вы ранее не регистрировались, то создайте новый кошелёк."
+  }
+};
+
+export const wtfError = error => {
   if (error.response) {
       console.log('Запрос был сделан и сервер ответил кодом статуса, который выходит за пределы диапазона 2xx');
       console.log(error.response.data);
@@ -22,7 +29,6 @@ export const wtfError = error => {
       console.log('Что-то произошло при настройке запроса, что вызвало ошибку');
       console.log('Error', error.message);
   }
-  console.log(error.config);
 }
 
 export const signIn = async ({ username, password }) => {

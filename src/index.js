@@ -14,6 +14,7 @@ import Index from "./components/LandingPage/LandingPage";
 import SignIn from "./components/SignInPage";
 import SignUp from "./components/SignUpPage";
 import Wallets from "./components/Wallets/WalletsPage";
+import WithdrawalPage from "./components/WithdrawalPage"
 
 function App() {
   const location = useLocation();
@@ -40,7 +41,8 @@ function App() {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/wallets" element={<Wallets />} />
-        <Route path="*" element={<Index />} />
+        <Route path="/withdrawal" element={<WithdrawalPage />} />
+        {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </div>
   );

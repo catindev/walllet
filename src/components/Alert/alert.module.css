@@ -1,0 +1,35 @@
+.alert {
+    display: flex;
+    flex-direction: column;
+    gap: .25em;
+    padding: 1em;
+    border: 3px solid rgba(var(--brand-dark-rgb), .65);
+    border-radius: 12px;
+    color: var(--brand-dark);
+    background-color: rgba(255, 255, 255, 0.85);
+}
+
+.title {
+    font-size: 1.125em;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.message {
+    font-size: 1em;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal; 
+}
+
+/* Types */
+.danger {
+    color: var(--brand-danger);  
+    border-color: rgba(var(--brand-danger), .65);
+}
+
+.success {
+    color: var(--brand-success);  
+    border-color: rgba(var(--brand-success), .65);
+}

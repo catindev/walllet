@@ -1,24 +1,27 @@
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
+import { errors } from "../api";
 import InnerPageLayout from "./InnerPageLayout/InnerPageLayout";
+import Alert from "./Alert/Alert";
 
 const SignInPage = () => {
-  const { isAuthenticated, SignIn, login } = useAuth();
+  const { isAuthenticated, SignIn } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(false);
 
   if (isAuthenticated) {
     return <Navigate to="/wallets" replace />;
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     try {
-      await SignIn({ username, password });
-    } catch (e) {
-      setError(e.error);
+      const response = await SignIn({ username, password });
+      if (!response.token) setError(0);
+    } catch (error) {
+      setError(error.response?.data?.error_code);
     }
   };
 
@@ -28,8 +31,8 @@ const SignInPage = () => {
         <form className="Form" onSubmit={handleSubmit}>
           <div className="Form__header">
             <h1>Представьтесь</h1>
-            {error && <h2>{error}</h2>}
           </div>
+          {error && <Alert title={errors[error].title} message={errors[error].message} type="danger"/>}
           <div className="Form__group">
             <label htmlFor="login">Логин</label>
             <input type="text" 
