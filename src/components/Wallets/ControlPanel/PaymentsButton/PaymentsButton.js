@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from "./payments.module.css";
-import buttonsStyles from "./buttons.module.css";
-import icon from "./icons/control-panel-payment-mobile.svg";
+import buttonsStyles from "../buttons.module.css";
+import icon from "./control-panel-payment-mobile.svg";
 
 export default () => (
     <Link to="/payments" className={[buttonsStyles.button,styles.button].join(" ")}>

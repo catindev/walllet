@@ -1,0 +1,137 @@
+.landing {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--brand-dark);
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.image, .info {
+  color: var(--brand-light);
+}
+
+.image {
+  min-height: 60vh;
+  background-image: url("landing-hero.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+  font-size: 2.25em;
+  font-weight: 300;
+  line-height: 1.25;
+}
+
+.subtitle {
+  font-size: 1.25em;
+  font-weight: 100;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25em;
+  padding: 1.5em 0;
+}
+
+.button, .button-outline {
+  display: flex;
+  gap: .5em;
+  text-decoration: none;
+}
+
+.button {
+  background-color: #F3F1ED;
+  color: var(--brand-dark);
+  border-radius: 50px;
+
+  font-size: 1.25em;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+
+  padding: 1em 1.25em;
+}
+
+.buttonOutline {
+  color: #F3F1ED;
+  background-color: transparent;
+  border-radius: 50px;
+  border: 2px solid #F3F1ED;
+
+  font-size: .95em;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+
+  padding: .5em 1.5em;
+}
+
+@media screen and (min-width: 430px) {
+    .image {
+        min-height: 50vh;
+    }    
+
+    .title {
+        font-size: 2.5em;
+    }
+      
+    .subtitle {
+        font-size: 1.5em;
+    }
+
+    .buttons {
+        gap: 1.5em;
+        padding: 2em 0;
+    }      
+}
+
+
+@media screen and (min-width: 1024px) {
+  .container {
+    flex-direction: row;
+    gap: 2em;
+    max-width: 1280px;
+  }
+
+  .image {
+    width: 430px;
+  }
+
+  .info {
+    text-align: left;
+    justify-content: center;
+  }
+
+  .title {
+    font-size: 4em;
+  }
+
+  .subtitle {
+    font-size: 2.5em;
+  }
+
+  .buttons {
+    align-items: baseline;
+  }
+
+  .buttonOutline {
+    padding: 1em 1.5em;
+  }
+}

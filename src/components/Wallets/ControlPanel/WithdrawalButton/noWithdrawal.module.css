@@ -1,10 +1,10 @@
 .button {
-    gap: .5em;
-    width: 70%;
+    gap: .25em;
+    width: 90%;
     padding: 1em;
     border-radius: 10px 40px 10px 10px;
     border: 3px solid var(--brand-danger);
-    background: rgba(243, 241, 237, 0.85);
+    background: rgba(243, 241, 237, .9);
     box-shadow: none;
 }
 
@@ -25,8 +25,20 @@
 }
 
 .icon {
-    width: 155px;
-    height: 63px;
+    width: 115px;
+    height: 46px;
+}    
+
+@media screen and (min-width: 430px) {
+    .button {
+        gap: .5em;
+        width: 80%;
+    }
+
+    .icon {
+        width: 155px;
+        height: 63px;
+    }    
 }
 
 @media screen and (min-width: 1024px) { 

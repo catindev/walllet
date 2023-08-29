@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import TopUpButton from "./TopUpButton";
+import TopUpButton from "./TopUpButton/TopUpButton";
 import WithdrawalButton from "./WithdrawalButton/WithdrawalButton";
-import PaymentButton from "./PaymentButton";
+import PaymentButton from "./PaymentsButton/PaymentsButton";
 import styles from "./buttons.module.css";
 
 const ControlPanel = ({ userStatus = 0 }) => {

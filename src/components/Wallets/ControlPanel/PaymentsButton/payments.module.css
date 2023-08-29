@@ -1,14 +1,14 @@
 .button {
     flex-direction: row;
     width: 100%;
-    gap: 2em;
+    gap: 1em;
     padding: 2em;
     border-radius: 10px 10px 25px 25px;
 }
 
 .icon {
-    width: 96px;
-    height: 96px;
+    width: 75px;
+    height: 75px;
 }
 
 .text {
@@ -17,7 +17,7 @@
 
 .title {
     color: rgba(var(--brand-dark-rgb), 0.65);
-    font-size: 2.7em;
+    font-size: 2em;
     font-style: normal;
     font-weight: 600;
     line-height: 1;
@@ -26,9 +26,28 @@
 .description {
     padding-top: .25em;
     color: rgba(var(--brand-dark-rgb), 0.55);
-    font-size: .9em;
+    font-size: .75em;
     font-style: normal;
     font-weight: 400;
     line-height: 1;
     max-width: 200px;
+}
+
+@media screen and (min-width: 430px) {
+    .button {
+        gap: 2em;
+    }
+
+    .icon {
+        width: 96px;
+        height: 96px;
+    }
+
+    .title {
+        font-size: 2.7em; 
+    }
+
+    .description {
+        font-size: .9em;
+    }
 }

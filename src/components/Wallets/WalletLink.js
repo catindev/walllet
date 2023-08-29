@@ -4,7 +4,7 @@ import {  Link } from 'react-router-dom';
 import styles from "./wallet.module.css";
 
 export default ({ id, amount, currency }) => {
-  const bgImage = { backgroundImage: 'url(static/wallet-avatar.svg)' };
+  const bgImage = { backgroundImage: 'url(static/wallet-avatar-32.svg)' };
   const description = "Ваш основной счет";
 
   return (
