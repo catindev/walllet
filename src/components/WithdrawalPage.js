@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 import InnerPageLayout from "./InnerPageLayout/InnerPageLayout";
-import WithdrawalMenu from "./Wallets/ControlPanel/WithdrawalButton/WithdrawalMenu/WithdrawalMenu";
 
 const WithdrawalPage = () => {
   const { isAuthenticated } = useAuth();
@@ -16,7 +15,7 @@ const WithdrawalPage = () => {
 
   return (
     <InnerPageLayout title="Перевести" backURL="/wallets">
-      <WithdrawalMenu/>
+      {/* <WithdrawalMenu/> */}
     </InnerPageLayout>
   );
 };

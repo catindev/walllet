@@ -1,17 +1,47 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from "./payments.module.css";
 import buttonsStyles from "../buttons.module.css";
 import icon from "./control-panel-payment-mobile.svg";
 
-export default () => (
-    <Link to="/payments" className={[buttonsStyles.button,styles.button].join(" ")}>
-        <img className={styles.icon} src={icon}/>
-        <div className={styles.text}>
-            <div className={styles.title}>Оплатить</div>
-            <div className={styles.description}>
-                Оплачивайте услуги или покупки у наших партнеров по реквизитам счета
+// Меню вариантов перевода рисуется общим компонентом
+import BottomSheetMenuList from "components/BottomSheetMenuList/BottomSheetMenuList";
+import { PaymentsIcon, InvoiceIcon } from './PaymentsMenuIcons';
+const menu = {
+    title: "Оплатить",
+    items: [
+        { label: "Платежи", to: "/wallets", Icon: PaymentsIcon },
+        { label: "По реквизитам счёта", to: "/wallets", Icon: InvoiceIcon },
+    ]
+};
+
+export default () => {
+    const [showMenu, setShowMenu] = useState(false);
+    const navigate = useNavigate();
+
+    // Для ноутов показываем меню в отдельном роуте (PaymentsPage)
+    const click = () => {
+        const viewportWidth = window.innerWidth;
+        if (viewportWidth <= 800) setShowMenu(true)
+        else navigate('/payments');
+    };
+
+    return (
+        <>
+            <div onClick={click} className={[buttonsStyles.button, styles.button].join(" ")}>
+                <img className={styles.icon} src={icon} />
+                <div className={styles.text}>
+                    <div className={styles.title}>Оплатить</div>
+                    <div className={styles.description}>
+                        Оплачивайте услуги или покупки у наших партнеров по реквизитам счета
+                    </div>
+                </div>
             </div>
-        </div>
-    </Link>
-);
+            <BottomSheetMenuList 
+                isOpen={showMenu} 
+                title={menu.title} 
+                items={menu.items} 
+                onClick={() => setShowMenu(false)}/>            
+        </>
+    );
+}

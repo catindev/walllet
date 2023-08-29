@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
-import BottomSheet from "../../../BottomSheet";
 import buttonsStyles from "../buttons.module.css";
 
 import styles from "./withdrawal.module.css";
@@ -10,7 +9,17 @@ import icon from "./control-panel-withdrawal-mobile.svg"
 import disabledStyles from "./noWithdrawal.module.css";
 import disabledIcon from "./control-panel-no-withdrawal-mobile.svg";
 
-import WithdrawalMenu from "./WithdrawalMenu/WithdrawalMenu";
+// Меню вариантов перевода рисуется общим компонентом
+import BottomSheetMenuList from "components/BottomSheetMenuList/BottomSheetMenuList";
+import { WalletIcon, CardIcon } from './WithdrawalMenuIcons';
+const menu = {
+    title: "Перевести",
+    items: [
+        { label: "На другой кошелёк", to:"/wallets", Icon: WalletIcon },
+        { label: "На карту банка", to:"/wallets", Icon: CardIcon },
+    ]
+};
+
 
 // Основной компонент
 export default ({ disabled = true }) => {
@@ -28,9 +37,11 @@ export default ({ disabled = true }) => {
     return (
         <>
             {component}
-            <BottomSheet isOpen={showMenu} onClose={() => setShowMenu(false)}>
-                <WithdrawalMenu onClick={() => setShowMenu(false)}/>
-            </BottomSheet>
+            <BottomSheetMenuList 
+                isOpen={showMenu} 
+                title={menu.title} 
+                items={menu.items} 
+                onClick={() => setShowMenu(false)}/>
         </>
     )
 };

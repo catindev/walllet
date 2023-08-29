@@ -26,7 +26,7 @@
     align-items: center;
     gap: .7em;
     text-decoration: none;
-    font-size: 1.1em;
+    font-size: 1.125em;
     color: rgba(var(--brand-text-rgb), .85);
     padding: 1em;
     font-weight: 400;
@@ -52,10 +52,6 @@
     height: 1em;
 }
 
-.menu li a:hover {
-    background-color: var(--brand-light);
-}
-
-.menu li a:active {
-    background-color: var(--brand-light);
+.menu li a:hover, .menu li a:active {
+    background-color: rgba(var(--brand-dark-rgb), .1);
 }

@@ -46,13 +46,18 @@ const WalletsPage = () => {
 
   return (
     <InnerPageLayout type="home" user={user.agent?.full_name} showPreloader={fetchingWallets}>
-      <div className={[styles.container,"full-height"].join(" ")}>
+      <div className={[styles.container, "full-height"].join(" ")}>
         <div className={styles.wallets}>
-          {error && <Alert title={errors[error].title} message={errors[error].message} type="danger"/>}
-          <Wallets list={wallets}/>
+
+          {error && <Alert
+            type="danger"
+            title={errors[error].title}
+            message={errors[error].message} />}
+
+          <Wallets list={wallets} />
         </div>
-        <ControlPanel userStatus={user.agent?.status} onWithdrawalClick={handleClick}/>
-      </div>   
+        <ControlPanel userStatus={user.agent?.status} onWithdrawalClick={handleClick} />
+      </div>
     </InnerPageLayout>
   );
 };

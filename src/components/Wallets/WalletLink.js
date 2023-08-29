@@ -3,9 +3,9 @@ import {  Link } from 'react-router-dom';
 
 import styles from "./wallet.module.css";
 
-export default ({ id, amount, currency }) => {
+export default ({ id, amount, currency, index }) => {
   const bgImage = { backgroundImage: 'url(static/wallet-avatar-32.svg)' };
-  const description = "Ваш основной счет";
+  const description = index === 0? "Основной счёт" : "Ещё один кошелёк";
 
   return (
     <Link to={`/wallet/${id}`} className={[styles.wallet, styles.link].join(" ")}>
