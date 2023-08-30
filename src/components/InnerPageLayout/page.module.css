@@ -1,4 +1,4 @@
-.appPage {
+.page {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -7,13 +7,13 @@
   padding-top: 4em;
 }
 
-.appPage__preloader {
+.preloader {
   display: flex;
   width: 100%;
   background: transparent url(preloader-static.svg) center center no-repeat;
 }
 
-.appPage__container {
+.container {
     width: 100%;
     height: 100%;
     display: flex;
@@ -22,7 +22,7 @@
     border-color: blue;
 }
 
-.appPage__header {
+.header {
   position: fixed;
   top: 0;
   width: 100%;
@@ -33,19 +33,19 @@
   background-color: var(--brand-dark);
 }
 
-.Header {
+.headerContainer {
   justify-content: space-between;
   align-items: center;
   padding: 1em;
 }  
 
-.Userbar {
+.userbar {
   display: flex;
   align-items: center;
   gap: .5em;
 }
 
-.Userbar__name {
+.name {
   color: var(--brand-light);
   font-size: 1.1em;
   font-style: normal;
@@ -54,7 +54,7 @@
 }
 
 
-.Header__iconLink {
+.iconLink {
   display: inline-block;
   width: 32px;
   height: 32px;
@@ -68,13 +68,13 @@
   border-color: yellow;
 }
 
-.Header__iconLink img {
+.iconLink img {
   display: block;
   width: 100%;
   height: 100%;
 }
 
-.Header__text {
+.text {
   color: var(--brand-light);
   font-size: 1.1em;
   font-style: normal;
@@ -90,19 +90,19 @@
 
 
 @media screen and (min-width: 1024px) {
-    .appPage {
+    .page {
       background: #fff url(desktop-page-bg.svg) no-repeat top left;
     }
 
-    .appPage__preloader {
+    .preloader {
       background: transparent url(preloader-static-dark.svg) center center no-repeat;
     }    
 
-    .appPage__container {
+    .container {
       max-width: 768px;
     }
 
-    .appPage__header {
+    .header {
       box-shadow: 0px 3px 10px 0px rgba(89, 91, 121, 0.50);
     }
 }

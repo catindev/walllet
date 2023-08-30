@@ -15,8 +15,8 @@ import { WalletIcon, CardIcon } from './WithdrawalMenuIcons';
 const menu = {
     title: "Перевести",
     items: [
-        { label: "На другой кошелёк", to:"/wallets", Icon: WalletIcon },
-        { label: "На карту банка", to:"/wallets", Icon: CardIcon },
+        { label: "На другой кошелёк", to:"/withdrawal/to/wallet", Icon: WalletIcon },
+        { label: "На карту банка", to:"/withdrawal/to/card", Icon: CardIcon },
     ]
 };
 

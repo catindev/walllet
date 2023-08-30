@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
       console.error(error);
       throw error;
     }
-  };  
+  };
 
   const SignOut = () => {
     setToken(null);

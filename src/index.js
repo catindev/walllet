@@ -6,15 +6,19 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
-import { AuthProvider, useAuth } from "./AuthContext";
+import { AuthProvider } from "AuthContext";
+import { SignProvider } from "components/Sign/SignContext"
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 
 import Index from "./components/LandingPage/LandingPage";
-import SignIn from "./components/SignInPage";
-import SignUp from "./components/SignUpPage";
+import SignIn from "./components/Sign/SignInPage";
+import SignUp from "./components/Sign/SignUp/SignUpPage";
+import CheckCode from "./components/Sign/SignUp/CheckCode";
+import Registration from "components/Sign/SignUp/Registration";
 import Wallets from "./components/Wallets/WalletsPage";
-import WithdrawalPage from "./components/WithdrawalPage"
+import WithdrawalPage from "./components/WithdrawalPage";
+import PlugPage from "components/Plug/PlugPage";
 
 function App() {
   const location = useLocation();
@@ -26,22 +30,31 @@ function App() {
     if (location !== displayLocation) setTransistionStage("pageFadeOut");
   }, [location, displayLocation]);
 
+  const onAnimationEnd = () => {
+    if (transitionStage === "pageFadeOut") {
+      setTransistionStage("pageFadeIn");
+      setDisplayLocation(location);
+    }
+  }
+
   return (
-    <div
-      className={`full-height ${transitionStage}`}
-      onAnimationEnd={() => {
-        if (transitionStage === "pageFadeOut") {
-          setTransistionStage("pageFadeIn");
-          setDisplayLocation(location);
-        }
-      }}
-    >
+    <div className={`full-height ${transitionStage}`} onAnimationEnd={onAnimationEnd}>
       <Routes location={displayLocation}>
         <Route path="/" element={<Index />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/signup/code" element={<CheckCode />} />
+        <Route path="/signup/finish" element={<Registration />} />
+        <Route path="/password/reset" element={<PlugPage />} />
         <Route path="/wallets" element={<Wallets />} />
-        <Route path="/withdrawal" element={<WithdrawalPage />} />
+        <Route path="/wallet/:id" element={<PlugPage />} />
+        <Route path="/topup" element={<PlugPage />} />
+        <Route path="/withdrawal" element={<PlugPage />} />
+        <Route path="/withdrawal/to/wallet" element={<PlugPage />} />
+        <Route path="/withdrawal/to/card" element={<PlugPage />} />
+        <Route path="/invoice" element={<PlugPage />} />
+        <Route path="/payments" element={<PlugPage />} />
+        <Route path="/payments" element={<PlugPage />} />
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </div>
@@ -52,9 +65,11 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <AuthProvider>
-      <Router>
-        <App />
-      </Router>
+      <SignProvider>
+        <Router>
+          <App />
+        </Router>
+      </SignProvider>
     </AuthProvider>
   </React.StrictMode>
 );

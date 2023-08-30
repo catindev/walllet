@@ -10,8 +10,8 @@ import { PaymentsIcon, InvoiceIcon } from './PaymentsMenuIcons';
 const menu = {
     title: "Оплатить",
     items: [
-        { label: "Платежи", to: "/wallets", Icon: PaymentsIcon },
-        { label: "По реквизитам счёта", to: "/wallets", Icon: InvoiceIcon },
+        { label: "Платежи", to: "/payments", Icon: PaymentsIcon },
+        { label: "По номеру счёта", to: "/invoice", Icon: InvoiceIcon },
     ]
 };
 

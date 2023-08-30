@@ -1,4 +1,4 @@
-.Form__wrapper {
+.wrapper {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -8,7 +8,7 @@
     border-color: green;
 }
 
-.Form {
+.form {
     display: flex;
     width: 100%;
     flex-direction: column;
@@ -22,7 +22,7 @@
     border-color: red;
 }
 
-.Form__header h1 {
+.header h1 {
     color: var(--brand-dark);
     font-size: 1.8em;
     font-style: normal;
@@ -30,25 +30,25 @@
     line-height: 1.25;
 }
 
-.Form__header h2 {
+.header h2 {
     color: rgba(var(--brand-dark-rgb), 0.65);
-    font-size: 1.2em;
+    font-size: 1em;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
 }
 
-.Form__group {
+.group {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
 }
 
-.Form__group input {
+.group input {
     width: 100%;
     border-radius: 25px;
     border: 2px solid rgba(var(--brand-dark-rgb), 0.65);
-    background: var(--brand-light);  
-    padding: .5em 1em;  
+    background: var(--brand-light);
+    padding: .5em 1em;
     font-size: 1em;
     font-style: normal;
     font-weight: 700;
@@ -56,40 +56,51 @@
     color: var(--brand-text);
     transition: all 0.2s ease;
 }
-.Form__group input::placeholder { 
+
+.group input::placeholder {
     color: #B7B7B7;
 }
-.Form__group input:focus {
+
+.group input:focus {
     border: 2px solid var(--brand-dark);
     background: #FBFBFB;
     box-shadow: 0px 3px 10px 0px rgba(var(--brand-dark-rgb), 0.50);
-    outline: none; 
+    outline: none;
 }
 
-.Form__group label {
+.group label {
     font-size: 16px;
     font-style: normal;
     font-weight: 500;
-    line-height: 1.5em; 
+    line-height: 1.5em;
     color: rgba(var(--brand-dark-rgb), 0.85);
     margin-bottom: .25em;
 }
 
-.Form__footer {
+.footer {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-top: 1em;
     gap: 1em;
-
-    border: var(--test-border-dotted);
-    border-color: red;
 }
 
-.Form__footer button {
+.footer span, .footer a {
+    color: rgba(var(--brand-dark-rgb), 0.85);
+    font-size: .85em;
+}
+
+.footer a {
+    text-decoration: underline;
+    cursor: pointer;
+    color: var(--brand-dark);
+    font-weight: 500;
+}
+
+.footer button {
     cursor: pointer;
     padding: .8em 2em;
-    background:var(--brand-dark);
+    background: var(--brand-dark);
     color: rgba(255, 255, 255, 0.85);
     font-size: 1em;
     font-style: normal;
@@ -97,44 +108,44 @@
     line-height: normal;
     border: 0;
     border-radius: 50px;
-    box-shadow: 0px 3px 10px 0px rgba(var(--brand-dark-rgb), 0.50);    
+    box-shadow: 0px 3px 10px 0px rgba(var(--brand-dark-rgb), 0.50);
 }
 
 @media (min-width: 1024px) {
-    .Form {
+    .form {
         background: transparent;
         border-radius: 0;
         max-width: 500px;
         gap: 1.5em;
     }
 
-    .Form__group {
-        flex-direction: row; 
+    .header h2 {
+        font-size: 1.2em;
+    }
+
+    .group {
+        flex-direction: row;
         align-items: center;
     }
 
-    .Form__group label {
+    .group label {
         min-width: 20%;
         margin-bottom: 0;
     }
 
-    .Form__footer {
+    .footer {
         align-items: flex-start;
     }
 
-    .Form__footer button {
+    .footer button {
         cursor: pointer;
         padding: .5em 2em;
         font-size: 1.25em;
-        box-shadow: none; 
+        box-shadow: none;
         transition: all 0.2s ease;
     }
-    .Form__footer button:hover {
-        box-shadow: 0px 3px 10px 0px rgba(var(--brand-dark-rgb), 0.50); 
+
+    .footer button:hover {
+        box-shadow: 0px 3px 10px 0px rgba(var(--brand-dark-rgb), 0.50);
     }
 }
-
-
-
-
-
