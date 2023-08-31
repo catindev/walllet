@@ -15,8 +15,33 @@ export const errors = {
     message: "Проверьте правильно ли вы вводите данные. Если вы ранее не регистрировались, то создайте новый кошелёк."
   },
 
+  9: {
+    title: "Ошибка перевода",
+    message: "Кошелек на такой номер не зарегистрирован"
+  },
+
+  30: {
+    title: "Ошибка 30",
+    message: "Сумма должна быть больше 1₸"
+  },
+
+  32: {
+    title: "Ошибка 32",
+    message: "Попытка работать с чужим кошельком"
+  },
+
+  43: {
+    title: "Не удалось создать новый кошелёк",
+    message: "Пользователь с таким номером телефона уже зарегистрирован"
+  },
+
+  44: {
+    title: "Ошибка 44",
+    message: "Сессия недействительна"
+  },
+
   2000: {
-    title: "Ошибка: 2000",
+    title: "Ошибка 2000",
     message: "Номер телефона не заполнен"
   },
 
@@ -25,24 +50,19 @@ export const errors = {
     message: "У кода, который вы вводите, вероятно уже истёк срок действия. Попробуйте вернуться на предыдущий шаг и отправить новый код"
   },
 
-  2014: {
-    title: "Ошибка: 2014",
-    message: "Можно отправлять только одно сообщение в минуту"
-  },
-
-  30: {
-    title: "Ошибка: 30",
-    message: "Сумма должна быть 1₸ или больше"
-  },
-
-  32: {
-    title: "Ошибка: 32",
-    message: "Попытка работать с чужим кошельком"
-  },
-
-  43: {
-    title: "Не удалось создать новый кошелёк",
+  2003: {
+    title: "Ошибка регистрации",
     message: "Пользователь с таким номером телефона уже зарегистрирован"
+  },
+
+  2013: {
+    title: "Ошибка 2013",
+    message: "Неверный код"
+  },
+
+  2014: {
+    title: "Ошибка 2014",
+    message: "Можно отправлять только одно сообщение в минуту"
   }
 };
 
@@ -165,9 +185,9 @@ export const Verify = async ({ phone }) => {
 }
 
 // 2. Проверяем код (из SMS)
-export const CheckCode = async ({ phone, smsCode }) => {
+export const CheckCode = async ({ phoneNumber, smsCode }) => {
   try {
-    const response = await axios.patch(`${BASE_URL}/cmp/verify`, { phone_number: phone, secret: smsCode });
+    const response = await axios.patch(`${BASE_URL}/cmp/verify`, { phone_number: phoneNumber, secret: smsCode });
     return response.data;
   } catch (error) {
     wtfError(error);
@@ -183,12 +203,10 @@ export const registration = async ({ name, password, token }) => {
     full_name: name, password,
     email: "", uin: "", country: "",
     address: "", company: "", position: "",
-    // системное легаси (спрашивать у Павла)
+    // системное легаси (спрашивать у Павла )
     owner_id: 1, currency: 1
   };
   const request = { method: 'post', url: `${BASE_URL}/cmp/register`, headers, data: body };
-  console.log(request);
-
   try {
     const response = await axios(request);
     return response.data;

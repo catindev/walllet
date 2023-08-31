@@ -8,14 +8,19 @@ import formStyles from "components/Form/form.module.css";
 import Alert from "components/Alert/Alert";
 
 const SignInPage = () => {
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
+
   const { isAuthenticated, SignIn } = useAuth();
-  const { phone, setPhone, password, setPassword, step, resetSign } = useSign();
+
+  const { phoneNumber, setPhoneNumber } = useSign();
   const [error, setError] = useState(null);
   const [systemError, setSystemError] = useState(null);
 
+  // Забираем номер из контекста если он там есть
   useEffect(() => {
-    if (step !== 1) resetSign();
-  });
+    if (phoneNumber) setLogin(phoneNumber);
+  },[phoneNumber]);
 
   if (isAuthenticated) {
     return <Navigate to="/wallets" replace />;
@@ -23,10 +28,11 @@ const SignInPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setError(null);
+    setPhoneNumber(login);
     try {
-      const response = await SignIn({ username: phone, password });
+      const response = await SignIn({ username: login, password });
       if (!response.token) setError(0);
-      resetSign();
     } catch (error) {
       setError(error.response?.data?.error_code || 0);
       if(error === 0) setSystemError(error.response?.data);
@@ -52,8 +58,8 @@ const SignInPage = () => {
             <input type="text"
               id="login"
               placeholder="Номер телефона"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              value={login}
+              onChange={(e) => setLogin(e.target.value)}
               required
             />
           </div>

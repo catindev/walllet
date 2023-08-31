@@ -34,6 +34,7 @@ const WithdrawalPage = () => {
                 setAmount("");
             }    
         } catch (error) {
+            console.log("Withdrawal to wallet error", error)
             setError(error.response?.data?.error_code || 0);
         }
     };

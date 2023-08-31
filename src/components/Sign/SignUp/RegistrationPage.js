@@ -8,14 +8,17 @@ import Alert from "components/Alert/Alert";
 import { errors, registration } from "api";
 
 const RegistrationPage = () => {
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+
   const { isAuthenticated } = useAuth();
-  const { step, setStep, name, setName, password, setPassword, regToken } = useSign();
+  const { step, setStep, regToken } = useSign();
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     console.log("Step from RegistrationPage", step);
-    if (step === 2) navigate('/signup/code');
+    if (step === 1) navigate('/signup');
     if (step === 4) navigate('/signin');
   }, [step]);
 
@@ -25,7 +28,9 @@ const RegistrationPage = () => {
 
   const handleBack = event => {
     event.preventDefault();
-    setStep(2);
+    setName("");
+    setPassword("");
+    setStep(1);
   }
 
   const handleSubmit = async (event) => {
@@ -33,7 +38,6 @@ const RegistrationPage = () => {
     console.log("name", name, "password", password);
     try {
       const response = await registration({ name, password, token: regToken });
-      console.log("response", response);
       setPassword("");
       setStep(4);
     } catch (error) {
@@ -49,7 +53,6 @@ const RegistrationPage = () => {
           <div className={formStyles.header}>
             <h1>Зарегистрируйтесь</h1>
             <h2>Последний шаг. Заполните данные о себе и пароль</h2>
-            {/* <h2>{JSON.stringify(regToken)}</h2> */}
           </div>
 
           {error !== null && <Alert

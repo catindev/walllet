@@ -8,13 +8,13 @@ import Alert from "components/Alert/Alert";
 import { errors, CheckCode } from "api";
 
 const CheckCodePage = () => {
+  const [smsCode, setSmsCode] = useState("");
   const { isAuthenticated } = useAuth();
-  const { step, setStep, smsCode, setSmsCode, phone, setRegToken } = useSign();
+  const { step, setStep, phoneNumber, setRegToken } = useSign();
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("Step from CheckCodePage", step);
     if (step === 1) navigate('/signup');
     if (step === 3) navigate('/signup/finish');
   }, [step]);
@@ -30,10 +30,8 @@ const CheckCodePage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("phone", phone, "code", smsCode);
-
     try {
-      const response = await CheckCode({ phone, smsCode });
+      const response = await CheckCode({ phoneNumber, smsCode });
       console.log("response", response)
       if (!response.token) setError(0)
       else {

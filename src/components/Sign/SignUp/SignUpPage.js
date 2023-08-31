@@ -8,14 +8,16 @@ import Alert from "components/Alert/Alert";
 import { errors, Verify } from "api";
 
 const SignUpPage = () => {
+  const [phone, setPhone] = useState();
   const { isAuthenticated } = useAuth();
-  const { phone, setPhone, step, setStep } = useSign();
+  const { step, setStep, phoneNumber, setPhoneNumber } = useSign();
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (phoneNumber) setPhone(phoneNumber);
     if (step === 2) navigate('/signup/code');
-  }, [step]);
+  }, [step, phoneNumber]);
 
   if (isAuthenticated) {
     return <Navigate to="/wallets" replace />;
@@ -23,7 +25,6 @@ const SignUpPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("phone", phone);
     try {
       const response = await Verify({ phone });
       console.log("response", response)
