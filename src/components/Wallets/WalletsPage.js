@@ -29,6 +29,11 @@ const WalletsPage = () => {
             title={errors[error].title}
             message={errors[error].message} />}
 
+          {wallets.length === 0 && <Alert
+            type="danger"
+            title="Кошельки не найдены"
+            message="Сделайте скриншот и отправьте в нашу тех. поддержку" />}
+
           <Wallets list={wallets} />
         </div>
         <ControlPanel userStatus={user?.agent?.status} />

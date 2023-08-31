@@ -19,17 +19,15 @@ export const UserProvider = ({ children }) => {
         } else {
             console.info("UserProvider: authorized, ", user.id);
         }
-    }, [token]);
 
-    useEffect(() => {
-        if (!token) return;
         if (token && wallets.length === 0) {
             console.info("UserProvider: fetching wallets...");
             fetchWallets();
         } else {
             console.info("UserProvider:", wallets.length, "wallets");
         }
-    }, [wallets]);
+    }, [token, wallets]);
+
 
     const FetchUser = useCallback(async () => {
         setFetchingUser(true);
