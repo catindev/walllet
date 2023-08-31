@@ -45,7 +45,7 @@ export const UserProvider = ({ children }) => {
 
     return (
         <UserContext.Provider value={{ 
-            user, fetchingUser,
+            user, fetchingUser, setUser,
             wallets, fetchingWallets, setWallets   
         }}>
             {children}

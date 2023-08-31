@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { signIn } from 'api';
 
 const AuthContext = createContext();
@@ -8,7 +8,7 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(!!$BEARER);
   const [token, setToken] = useState($BEARER);
 
-  const SignIn = async (credentials) => {
+  const SignIn = async credentials => {
     try {
       const data = await signIn(credentials);
       localStorage.setItem("Bearer", data.token);

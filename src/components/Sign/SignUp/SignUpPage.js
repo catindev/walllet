@@ -25,6 +25,7 @@ const SignUpPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setPhoneNumber(phone);
     try {
       const response = await Verify({ phone });
       console.log("response", response)

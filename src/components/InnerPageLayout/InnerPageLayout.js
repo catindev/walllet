@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import { useAuth } from "AuthContext";
+import { useUser } from "UserContext";
 import pageStyles from "./page.module.css";
 import backIcon from "./back-button.svg";
 import logoutIcon from "./logout-button.svg";
@@ -51,6 +52,13 @@ const InnerHeader = ({ title, backFn }) => {
 
 const MainHeader = ({ name }) => {
   const { SignOut } = useAuth();
+  const { setUser, setWallets } = useUser();
+
+  const logOut = () => {
+    setUser(null);
+    setWallets([]);
+    SignOut();
+  }
 
   return (
     <div className={pageStyles.header}>
@@ -60,7 +68,7 @@ const MainHeader = ({ name }) => {
           <div className={pageStyles.name}>{name}</div>
         </div>
         {/*  to="/settings" */}
-        <Link onClick={SignOut} className={pageStyles.iconLink}>
+        <Link onClick={logOut} className={pageStyles.iconLink}>
           <img src={logoutIcon} />
         </Link>
       </div>
