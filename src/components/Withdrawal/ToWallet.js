@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from 'AuthContext';
 import { useUser } from 'UserContext';
 import { errors, tranferToWallet } from "api";
@@ -16,6 +16,8 @@ const WithdrawalPage = () => {
     const [success, setSuccess] = useState(false);
     const [beneficiaryAgent, setBeneficiaryAgent] = useState(false);
 
+    const navigate = useNavigate();
+
     if (!isAuthenticated) {
         return <Navigate to="/" replace />;
     }
@@ -28,7 +30,6 @@ const WithdrawalPage = () => {
             const response = await tranferToWallet({ token, from: wallets[0].id, to: payee, amount });
             if (response.status === 100) { 
                 setSuccess(true);
-                setWallets([]);
                 setBeneficiaryAgent(response.beneficiary_agent.name);
                 setPayee("");
                 setAmount("");
@@ -39,8 +40,13 @@ const WithdrawalPage = () => {
         }
     };
 
+    const goBack = () => {
+        setWallets([]);
+        navigate("/wallets");
+    }
+
     return (
-        <InnerPageLayout title="Перевести на кошелёк" backURL="/wallets">
+        <InnerPageLayout title="Перевести на кошелёк" backFn={goBack}>
             <div className={formStyles.wrapper}>
                 <form className={formStyles.form} onSubmit={handleSubmit}>
                     <div className={formStyles.header}>
