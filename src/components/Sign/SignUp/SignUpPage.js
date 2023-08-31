@@ -5,7 +5,7 @@ import { useSign } from '../SignContext';
 import InnerPageLayout from "components/InnerPageLayout/InnerPageLayout";
 import formStyles from "components/Form/form.module.css";
 import Alert from "components/Alert/Alert";
-import { errors, fakeSignIn } from "api";
+import { errors, Verify } from "api";
 
 const SignUpPage = () => {
   const { isAuthenticated } = useAuth();
@@ -24,15 +24,14 @@ const SignUpPage = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("phone", phone);
-    if (phone === "123") setStep(2);
-    // try {
-    //   const response = await fakeSignIn({});
-    //   console.log("response", response)
-    //   if (!response.token) setError(0);
-    // } catch (error) {
-    //   console.log("error", error)
-    //   setError(error.response?.data?.error_code || 0);
-    // }
+    try {
+      const response = await Verify({ phone });
+      console.log("response", response)
+      setStep(2);
+    } catch (error) {
+      console.log("error", error)
+      setError(error.response?.data?.error_code || 0);
+    }
   };
 
   return (

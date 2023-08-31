@@ -13,6 +13,11 @@ export const errors = {
   3: {
     title: "Неверный логин или пароль",
     message: "Проверьте правильно ли вы вводите данные. Если вы ранее не регистрировались, то создайте новый кошелёк."
+  },
+
+  2000: {
+    title: "Ошибка",
+    message: "Номер телефона не заполнен"
   }
 };
 
@@ -84,9 +89,20 @@ export const getWallets = async (token) => {
 /* Регистрация пользователя */
 
 // 1. Отправляем SMS на номер
-export const Verify = async ({ phone_number }) => {
+export const Verify = async ({ phone }) => {
   try {
-    const response = await axios.post(`${BASE_URL}/api/v1/auth`, { phone_number });
+    const response = await axios.post(`${BASE_URL}/cmp/verify`, { phone_number: phone });
+    return response.data;
+  } catch (error) {
+    wtfError(error);
+    throw error;
+  }
+}
+
+// 2. Проверяем код (из SMS)
+export const CheckCode = async ({ phone, code }) => {
+  try {
+    const response = await axios.patch(`${BASE_URL}/cmp/verify`, { phone_number: phone, secret: code });
     return response.data;
   } catch (error) {
     wtfError(error);

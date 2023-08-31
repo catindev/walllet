@@ -5,11 +5,11 @@ import { useSign } from '../SignContext';
 import InnerPageLayout from "components/InnerPageLayout/InnerPageLayout";
 import formStyles from "components/Form/form.module.css";
 import Alert from "components/Alert/Alert";
-import { errors, fakeSignIn } from "api";
+import { errors, CheckCode } from "api";
 
-const CheckCode = () => {
+const CheckCodePage = () => {
   const { isAuthenticated } = useAuth();
-  const { step, setStep, smsCode, setSmsCode, phone } = useSign();
+  const { step, setStep, smsCode, setSmsCode, phone, setRegToken } = useSign();
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -31,16 +31,19 @@ const CheckCode = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("code", smsCode, "phone", phone);
-    if(smsCode === "010") setStep(3);
-
-    // try {
-    //   const response = await fakeSignIn({});
-    //   console.log("response", response)
-    //   if (!response.token) setError(0);
-    // } catch (error) {
-    //   console.log("error", error)
-    //   setError(error.response?.data?.error_code || 0);
-    // }
+    // if(smsCode === "010") setStep(3);
+    try {
+      const response = await CheckCode({ phone, smsCode });
+      console.log("response", response)
+      if (!response.token) setError(0)
+      else {
+        setRegToken(response.token);
+        setStep(3);
+      }
+    } catch (error) {
+      console.log("error", error)
+      setError(error.response?.data?.error_code || 0);
+    }
   };
 
   return (
@@ -75,4 +78,4 @@ const CheckCode = () => {
   );
 };
 
-export default CheckCode;
+export default CheckCodePage;
