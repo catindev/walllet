@@ -29,7 +29,7 @@
     border-color: rgba(var(--brand-danger), .65);
     animation-name: ShakeDanger;
     animation-fill-mode: forward;
-    animation-duration: 0.6s;
+    animation-duration: 0.4s;
     animation-timing-function: ease-in-out;
 }
 
@@ -67,8 +67,46 @@
     }
 }
 
+@keyframes ShakeSuccess {
+    0% {
+        transform: translateY(0);
+    }
+
+    15% {
+        transform: translateY(0.375rem);
+    }
+
+    30% {
+        transform: translateY(-0.375rem);
+    }
+
+    45% {
+        transform: translateY(0.375rem);
+    }
+
+    60% {
+        transform: translateY(-0.375rem);
+    }
+
+    75% {
+        transform: translateY(0.375rem);
+    }
+
+    90% {
+        transform: translateY(-0.375rem);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
 
 .success {
     color: var(--brand-success);
     border-color: rgba(var(--brand-success), .65);
+    animation-name: ShakeSuccess;
+    animation-fill-mode: forward;
+    animation-duration: 0.35s;
+    animation-timing-function: ease-in-out;
 }

@@ -10,12 +10,11 @@ import Alert from "components/Alert/Alert";
 const SignInPage = () => {
   const { isAuthenticated, SignIn } = useAuth();
   const { phone, setPhone, password, setPassword, step, resetSign } = useSign();
-  // const [username, setUsername] = useState("");
-  // const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [systemError, setSystemError] = useState(null);
 
   useEffect(() => {
-    // if (step === 3) resetSign();
+    if (step !== 1) resetSign();
   });
 
   if (isAuthenticated) {
@@ -27,8 +26,10 @@ const SignInPage = () => {
     try {
       const response = await SignIn({ username: phone, password });
       if (!response.token) setError(0);
+      resetSign();
     } catch (error) {
       setError(error.response?.data?.error_code || 0);
+      if(error === 0) setSystemError(error.response?.data);
     }
   };
 
@@ -41,9 +42,10 @@ const SignInPage = () => {
             <h2>Введите логин и пароль</h2>
           </div>
 
-          {error !== null && <Alert
+          {error !== null && <Alert type="danger"
             title={errors[error].title}
-            message={errors[error].message} type="danger" />}
+            message={errors[error].message} 
+            systemMessage={systemError} />}
 
           <div className={formStyles.group}>
             <label htmlFor="login">Логин</label>

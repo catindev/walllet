@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../AuthContext';
-import InnerPageLayout from "./InnerPageLayout/InnerPageLayout";
+import { useAuth } from '../../AuthContext';
+import InnerPageLayout from "../InnerPageLayout/InnerPageLayout";
 
 const WithdrawalPage = () => {
   const { isAuthenticated } = useAuth();

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { signIn, getUser } from './api';
+import { signIn } from 'api';
 
 const AuthContext = createContext();
 
@@ -7,14 +7,6 @@ export const AuthProvider = ({ children }) => {
   const $BEARER = localStorage.getItem("Bearer");
   const [isAuthenticated, setIsAuthenticated] = useState(!!$BEARER);
   const [token, setToken] = useState($BEARER);
-  const [user, setUser] = useState({});
-
-  useEffect(() => {
-    if (token && !user.id) {
-      console.info("AuthProvider: authorized, fetching user...");
-      FetchUser();
-    }
-  }, [token]);
 
   const SignIn = async (credentials) => {
     try {
@@ -34,18 +26,8 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("Bearer");
   };
 
-  const FetchUser = useCallback(async () => {
-    try {
-      const userInfo = await getUser(token);
-      setUser(userInfo);
-    } catch (error) {
-      console.error(error);
-    }
-  });
-
-
   return (
-    <AuthContext.Provider value={{ isAuthenticated, SignIn, SignOut, token, user }}>
+    <AuthContext.Provider value={{ isAuthenticated, SignIn, SignOut, token }}>
       {children}
     </AuthContext.Provider>
   );

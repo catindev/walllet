@@ -1,33 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate, Link } from 'react-router-dom';
-import { useAuth } from '../../AuthContext';
-import { errors, getWallets } from '../../api';
-import InnerPageLayout from "../InnerPageLayout/InnerPageLayout";
+import { useAuth } from 'AuthContext';
+import { useUser } from 'UserContext';
+import { errors, getWallets } from 'api';
+import InnerPageLayout from "components/InnerPageLayout/InnerPageLayout";
 import Wallets from "./Wallets";
 import ControlPanel from "./ControlPanel/ControlPanel";
-import Alert from "../Alert/Alert";
+import Alert from "components/Alert/Alert";
 
 import styles from "./wallets.module.css";
 
 const WalletsPage = () => {
   const [fetchingWallets, setFetchingWallets] = useState(false);
-  const [wallets, setWallets] = useState([]);
-  const { isAuthenticated, user, token } = useAuth();
+  const { isAuthenticated, token } = useAuth();
+  const { user, wallets, setWallets } = useUser();
   const [error, setError] = useState(false);
-  const [showMenu, setShowMenu] = useState(false);
-
 
   useEffect(() => {
-    if (token && user.id) {
-      console.log("Wallets: fetch wallets for", user.agent.full_name);
-      fetchWallets();
+    console.log("WalletsPage", user)
+    if (token && user && user.id) {
+      if (wallets.length === 0) {
+        console.log("Wallets: fetch wallets for", user.agent?.full_name);
+        fetchWallets();
+      } else {
+        console.log("Wallets:", wallets.length ," wallets for", user.agent?.full_name);
+      }
     }
   }, [token, user]);
-
-  const handleClick = async (event) => {
-    event.preventDefault();
-    setShowMenu(true)
-  };
 
   const fetchWallets = async () => {
     setFetchingWallets(true);
@@ -45,7 +44,7 @@ const WalletsPage = () => {
   }
 
   return (
-    <InnerPageLayout type="home" user={user.agent?.full_name} showPreloader={fetchingWallets}>
+    <InnerPageLayout type="home" user={user?.agent?.full_name} showPreloader={(!user || fetchingWallets)}>
       <div className={[styles.container, "full-height"].join(" ")}>
         <div className={styles.wallets}>
 
@@ -56,7 +55,7 @@ const WalletsPage = () => {
 
           <Wallets list={wallets} />
         </div>
-        <ControlPanel userStatus={user.agent?.status} onWithdrawalClick={handleClick} />
+        <ControlPanel userStatus={user?.agent?.status} />
       </div>
     </InnerPageLayout>
   );

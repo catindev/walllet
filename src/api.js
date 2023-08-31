@@ -16,16 +16,42 @@ export const errors = {
   },
 
   2000: {
-    title: "Ошибка",
+    title: "Ошибка: 2000",
     message: "Номер телефона не заполнен"
+  },
+
+  2002: {
+    title: "Код недействителен",
+    message: "У кода, который вы вводите, вероятно уже истёк срок действия. Попробуйте вернуться на предыдущий шаг и отправить новый код"
+  },
+
+  2014: {
+    title: "Ошибка: 2014",
+    message: "Можно отправлять только одно сообщение в минуту"
+  },
+
+  30: {
+    title: "Ошибка: 30",
+    message: "Сумма должна быть 1₸ или больше"
+  },
+
+  32: {
+    title: "Ошибка: 32",
+    message: "Попытка работать с чужим кошельком"
+  },
+
+  43: {
+    title: "Не удалось создать новый кошелёк",
+    message: "Пользователь с таким номером телефона уже зарегистрирован"
   }
 };
 
 export const wtfError = error => {
 
-  // Костыль до тех пор пока на бэке не сменят на 401
-  if (error.response.status === 403) {
-    localStorage.removeItem('appToken');
+  // Токен истёк
+  if (error.response?.data?.error_code === 44) {
+    alert(44)
+    localStorage.removeItem('Bearer');
     window.location.href = "/";
     return;
   }
@@ -86,6 +112,45 @@ export const getWallets = async (token) => {
   }
 }
 
+/* Withdrawals */
+
+export const tranferToWallet = async ({ token, from, to, amount }) => {
+  console.log({ token, from, to, amount });
+
+  try {
+    const headers = { 'Authorization': `Bearer ${token}` };
+    const agentByPhone = await axios.get(`${BASE_URL}/api/v1/client?phone=${to}`, { headers });
+    const { id: payee } = agentByPhone.data;
+    if (!payee) throw ({ error_code: 0, message: "Не удалось получить id кошелька получателя" });
+
+    const transerBody = {
+      payor_wallet: from,
+      beneficiary_agent: payee,
+      amount: amount * 100,
+      metadata: {
+        description: "Transfer from Walllet.app"
+      }
+    };
+
+
+    const transfer = await axios({ method: 'post', url: `${BASE_URL}/api/v1/transaction`, headers, data: transerBody, })
+    const { id: transferID, status: transferStatus } = transfer.data;
+    if (!transferID) throw ({ error_code: 0, message: "Не удалось создать транзакцию на перевод" });
+    if (!transferStatus === 400) throw ({ error_code: 0, message: "Не удалось создать транзакцию на перевод" });
+
+    const approveBody = { id: transferID, approve: "APPROVED" };
+    const approveTransfer = await axios({ method: 'patch', url: `${BASE_URL}/api/v1/transaction`, headers, data: approveBody });
+    const { status: transactionStatus } = approveTransfer.data;
+    if (transactionStatus !== 100) {
+      throw ({ error_code: 0, message: "Не удалось подтвердить транзакцию" })
+    }
+    return approveTransfer.data;
+  } catch (error) {
+    wtfError(error);
+    throw error;
+  }
+}
+
 /* Регистрация пользователя */
 
 // 1. Отправляем SMS на номер
@@ -100,9 +165,32 @@ export const Verify = async ({ phone }) => {
 }
 
 // 2. Проверяем код (из SMS)
-export const CheckCode = async ({ phone, code }) => {
+export const CheckCode = async ({ phone, smsCode }) => {
   try {
-    const response = await axios.patch(`${BASE_URL}/cmp/verify`, { phone_number: phone, secret: code });
+    const response = await axios.patch(`${BASE_URL}/cmp/verify`, { phone_number: phone, secret: smsCode });
+    return response.data;
+  } catch (error) {
+    wtfError(error);
+    throw error;
+  }
+}
+
+// 3. Завершаем регистрацию
+export const registration = async ({ name, password, token }) => {
+  console.log({ name, password, token });
+  const headers = { 'Authorization': `Bearer ${token}` };
+  const body = {
+    full_name: name, password,
+    email: "", uin: "", country: "",
+    address: "", company: "", position: "",
+    // системное легаси (спрашивать у Павла)
+    owner_id: 1, currency: 1
+  };
+  const request = { method: 'post', url: `${BASE_URL}/cmp/register`, headers, data: body };
+  console.log(request);
+
+  try {
+    const response = await axios(request);
     return response.data;
   } catch (error) {
     wtfError(error);
@@ -111,7 +199,7 @@ export const CheckCode = async ({ phone, code }) => {
 }
 
 export const fakeSignIn = (credentials) => {
-  console.log("credentials",credentials)
+  console.log("credentials", credentials)
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (credentials.username === "admin" && credentials.password === "password") {

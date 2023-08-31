@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from 'AuthContext';
 import { useSign } from '../SignContext';
 import InnerPageLayout from "components/InnerPageLayout/InnerPageLayout";
@@ -14,7 +14,7 @@ const CheckCodePage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(step);
+    console.log("Step from CheckCodePage", step);
     if (step === 1) navigate('/signup');
     if (step === 3) navigate('/signup/finish');
   }, [step]);
@@ -30,8 +30,8 @@ const CheckCodePage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("code", smsCode, "phone", phone);
-    // if(smsCode === "010") setStep(3);
+    console.log("phone", phone, "code", smsCode);
+
     try {
       const response = await CheckCode({ phone, smsCode });
       console.log("response", response)
@@ -47,34 +47,37 @@ const CheckCodePage = () => {
   };
 
   return (
-      <InnerPageLayout title="Создать кошелек" backFn={handleBack}>
-        <div className={formStyles.wrapper}>
-          <form className={formStyles.form} onSubmit={handleSubmit}>
-            <div className={formStyles.header}>
-              <h1>Зарегистрируйтесь</h1>
-              <h2>Подтвердите номер телефона кодом из SMS</h2>
-            </div>
+    <InnerPageLayout title="Создать кошелек" backFn={handleBack}>
+      <div className={formStyles.wrapper}>
+        <form className={formStyles.form} onSubmit={handleSubmit}>
+          <div className={formStyles.header}>
+            <h1>Зарегистрируйтесь</h1>
+            <h2>Подтвердите номер телефона кодом из SMS</h2>
+          </div>
 
-            {error !== null && <Alert
-              title={errors[error].title}
-              message={errors[error].message} type="danger" />}
+          {error !== null && <Alert
+            title={errors[error].title}
+            message={errors[error].message} type="danger" />}
 
-            <div className={formStyles.group}>
-              <label htmlFor="login">Код из SMS</label>
-              <input
-                type="text"
-                placeholder="159753"
-                value={smsCode}
-                onChange={(e) => setSmsCode(e.target.value)}
-              />
-            </div>
+          <div className={formStyles.group}>
+            <label htmlFor="login">Код из SMS</label>
+            <input
+              type="text"
+              placeholder="159753"
+              value={smsCode}
+              onChange={(e) => setSmsCode(e.target.value)}
+            />
+          </div>
 
-            <div className={formStyles.footer}>
-              <button type="submit">Проверить код</button>
-            </div>
-          </form>
-        </div>
-      </InnerPageLayout>
+          <div className={formStyles.footer}>
+            <button type="submit">Проверить код</button>
+          </div>
+          <div className={formStyles.footer}>
+            <div><span>У вас уже есть кошелек?</span> <Link to="/signin">Войдите</Link></div>
+          </div>
+        </form>
+      </div>
+    </InnerPageLayout>
   );
 };
 

@@ -7,6 +7,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import { AuthProvider } from "AuthContext";
+import { UserProvider } from "UserContext";
 import { SignProvider } from "components/Sign/SignContext"
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
@@ -17,7 +18,8 @@ import SignUp from "./components/Sign/SignUp/SignUpPage";
 import CheckCode from "./components/Sign/SignUp/CheckCodePage";
 import Registration from "components/Sign/SignUp/RegistrationPage";
 import Wallets from "./components/Wallets/WalletsPage";
-import WithdrawalPage from "./components/WithdrawalPage";
+import WithdrawalPage from "./components/Withdrawal/WithdrawalPage";
+import ToWallet from "./components/Withdrawal/ToWallet";
 import PlugPage from "components/Plug/PlugPage";
 
 function App() {
@@ -50,7 +52,7 @@ function App() {
         <Route path="/wallet/:id" element={<PlugPage />} />
         <Route path="/topup" element={<PlugPage />} />
         <Route path="/withdrawal" element={<PlugPage />} />
-        <Route path="/withdrawal/to/wallet" element={<PlugPage />} />
+        <Route path="/withdrawal/to/wallet" element={<ToWallet />} />
         <Route path="/withdrawal/to/card" element={<PlugPage />} />
         <Route path="/invoice" element={<PlugPage />} />
         <Route path="/payments" element={<PlugPage />} />
@@ -65,11 +67,13 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <AuthProvider>
-      <SignProvider>
-        <Router>
-          <App />
-        </Router>
-      </SignProvider>
+      <UserProvider>
+        <SignProvider>
+          <Router>
+            <App />
+          </Router>
+        </SignProvider>
+      </UserProvider>
     </AuthProvider>
   </React.StrictMode>
 );
