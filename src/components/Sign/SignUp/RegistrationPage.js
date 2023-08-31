@@ -82,7 +82,7 @@ const RegistrationPage = () => {
           </div>
 
           <div className={formStyles.footer}>
-            <button type="submit">Проверить код</button>
+            <button type="submit">Создать кошелек</button>
           </div>
           <div className={formStyles.footer}>
             <div><span>У вас уже есть кошелек?</span> <Link to="/signin">Войдите</Link></div>
