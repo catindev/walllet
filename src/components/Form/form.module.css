@@ -68,6 +68,10 @@
     outline: none;
 }
 
+.form[disabled] input {
+    opacity: .65;
+}
+
 .group label {
     font-size: 16px;
     font-style: normal;
@@ -109,6 +113,10 @@
     border: 0;
     border-radius: 50px;
     box-shadow: 0px 3px 10px 0px rgba(var(--brand-dark-rgb), 0.50);
+}
+
+.form[disabled] button {
+    opacity: .65;
 }
 
 @media (min-width: 1024px) {

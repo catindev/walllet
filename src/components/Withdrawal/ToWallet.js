@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from 'AuthContext';
 import { useUser } from 'UserContext';
-import { errors, tranferToWallet } from "api";
+import { errors, tranferToWallet, getError } from "api";
 import InnerPageLayout from "components/InnerPageLayout/InnerPageLayout";
 import formStyles from "components/Form/form.module.css";
 import Alert from "components/Alert/Alert";
@@ -15,6 +15,7 @@ const WithdrawalPage = () => {
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(false);
     const [beneficiaryAgent, setBeneficiaryAgent] = useState(false);
+    const [inProgress, setInProgress] = useState(false);
 
     const navigate = useNavigate();
 
@@ -24,20 +25,22 @@ const WithdrawalPage = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setInProgress(true);
         setSuccess(false);
         setError(null);
         try {
             const response = await tranferToWallet({ token, from: wallets[0].id, to: payee, amount });
-            if (response.status === 100) { 
+            if (response.status === 100) {
                 setSuccess(true);
                 setBeneficiaryAgent(response.beneficiary_agent.name);
                 setPayee("");
                 setAmount("");
-            }    
+            }
         } catch (error) {
             console.log("Withdrawal to wallet error", error)
-            setError(error.response?.data?.error_code || 0);
+            setError(getError(error.response?.data?.error_code));
         }
+        setInProgress(false);
     };
 
     const goBack = () => {
@@ -48,15 +51,15 @@ const WithdrawalPage = () => {
     return (
         <InnerPageLayout title="Перевести на кошелёк" backFn={goBack}>
             <div className={formStyles.wrapper}>
-                <form className={formStyles.form} onSubmit={handleSubmit}>
+                <form className={formStyles.form} onSubmit={handleSubmit} disabled={inProgress}>
                     <div className={formStyles.header}>
                         <h1>Перевод на кошелёк</h1>
                         <h2>Введите номер получателя и сумму перевода</h2>
                     </div>
 
                     {error !== null && <Alert
-                        title={errors[error].title}
-                        message={errors[error].message} type="danger" />}
+                        title={error.title}
+                        message={error.message} type="danger"/>}
 
                     {success !== false && <Alert
                         title="Перевод прошел успешно"
@@ -85,7 +88,10 @@ const WithdrawalPage = () => {
                     </div>
 
                     <div className={formStyles.footer}>
-                        <button type="submit">Перевести</button>
+                        <button type="submit">
+                            {!inProgress && "Перевести"}
+                            {inProgress && "Переводим..."}
+                        </button>
                     </div>
                 </form>
             </div>

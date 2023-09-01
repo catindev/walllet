@@ -20,6 +20,11 @@ export const errors = {
     message: "Кошелек на такой номер не зарегистрирован"
   },
 
+  12: {
+    title: "Ошибка перевода",
+    message: "На вашем кошельке недостаточно средств"
+  },
+
   30: {
     title: "Ошибка 30",
     message: "Сумма должна быть больше 1₸"
@@ -74,6 +79,11 @@ export const errors = {
     title: "Ошибка 2014",
     message: "Можно отправлять только одно сообщение в минуту"
   }
+};
+
+export const getError = code => {
+  if (errors[code]) return errors[code];
+  return errors[0];
 };
 
 export const wtfError = error => {
