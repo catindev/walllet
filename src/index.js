@@ -20,6 +20,7 @@ import Registration from "components/Sign/SignUp/RegistrationPage";
 import Wallets from "./components/Wallets/WalletsPage";
 import WithdrawalPage from "./components/Withdrawal/WithdrawalPage";
 import ToWallet from "./components/Withdrawal/ToWallet";
+import IdentityPage from "components/Identity/IdentityPage";
 import PlugPage from "components/Plug/PlugPage";
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
         <Route path="/password/reset" element={<PlugPage />} />
         <Route path="/wallets" element={<Wallets />} />
         <Route path="/wallet/:id" element={<PlugPage />} />
+        <Route path="/identity" element={<IdentityPage />} />
         <Route path="/topup" element={<PlugPage />} />
         <Route path="/withdrawal" element={<PlugPage />} />
         <Route path="/withdrawal/to/wallet" element={<ToWallet />} />
