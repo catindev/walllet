@@ -90,7 +90,6 @@ export const wtfError = error => {
 
   // Токен истёк
   if (error.response?.data?.error_code === 44) {
-    alert(44)
     localStorage.removeItem('Bearer');
     window.location.href = "/";
     return;
