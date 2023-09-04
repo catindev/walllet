@@ -20,7 +20,7 @@ const WalletsPage = () => {
   }
 
   return (
-    <InnerPageLayout type="home" user={user?.agent?.full_name} showPreloader={(!user || fetchingWallets)}>
+    <InnerPageLayout type="home" showPreloader={(!user || fetchingWallets)}>
       <div className={[styles.container, "full-height"].join(" ")}>
         <div className={styles.wallets}>
 

@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from 'AuthContext';
 import { useUser } from 'UserContext';
-import { errors, tranferToWallet, getError } from "api";
+import { tranferToWallet, getError } from "api";
 import InnerPageLayout from "components/InnerPageLayout/InnerPageLayout";
 import formStyles from "components/Form/form.module.css";
 import Alert from "components/Alert/Alert";
 
 const WithdrawalPage = () => {
     const { isAuthenticated, token } = useAuth();
-    const { wallets, setWallets } = useUser();
+    const { wallets, setWallets, user } = useUser();
     const [payee, setPayee] = useState("");
     const [amount, setAmount] = useState("");
     const [error, setError] = useState(null);
@@ -21,6 +21,11 @@ const WithdrawalPage = () => {
 
     if (!isAuthenticated) {
         return <Navigate to="/" replace />;
+    }
+
+    // Перевод доступен только пользователям с идентификацией
+    if (user?.agent.status === 1) {
+        return <Navigate to="/wallets" replace />;
     }
 
     const handleSubmit = async (event) => {
@@ -57,21 +62,22 @@ const WithdrawalPage = () => {
                         <h2>Введите номер получателя и сумму перевода</h2>
                     </div>
 
-                    {error !== null && <Alert
+                    {error !== null && <Alert type="danger"
                         title={error.title}
-                        message={error.message} type="danger"/>}
+                        message={error.message}/>}
 
-                    {success !== false && <Alert
-                        title="Перевод прошел успешно"
-                        message={`${beneficiaryAgent} получил средства на свой кошелёк`} type="success" />}
+                    {success !== false && <Alert type="success"
+                        title="Средства отправлены"
+                        message={`${beneficiaryAgent} получит перевод на свой кошелёк`} />}
 
                     <div className={formStyles.group}>
                         <label htmlFor="payee">Кому отправить</label>
-                        <input type="text"
+                        <input type="tel"
                             id="payee"
-                            placeholder="Номер телефона"
+                            placeholder="770112345678"
                             value={payee}
                             onChange={(e) => setPayee(e.target.value)}
+                            pattern="^7(70[0-9]|771|775|776|777|778)\d{7}$"
                             required
                         />
                     </div>
@@ -83,6 +89,7 @@ const WithdrawalPage = () => {
                             id="amount"
                             value={amount}
                             onChange={(e) => setAmount(e.target.value)}
+                            pattern="^(?!0[0-9])(\d{1,12})(\.\d{1,2})?$"
                             required
                         />
                     </div>

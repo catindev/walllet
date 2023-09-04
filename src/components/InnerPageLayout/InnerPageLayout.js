@@ -5,13 +5,15 @@ import { useUser } from "UserContext";
 import pageStyles from "./page.module.css";
 import backIcon from "./back-button.svg";
 import logoutIcon from "./logout-button.svg";
+import refreshButton from "./refresh-button.svg"
 
-const InnerPageLayout = ({ title, backURL, backFn = false, type = "inner", user = "", showPreloader = false, children }) => {
-  
+const InnerPageLayout = ({
+  title, backURL, backFn = false, type = "inner", showPreloader = false, children
+}) => {
   return (
     <div className={`${pageStyles.page} full-height`}>
       {type === "inner" && (backFn !== false ? <InnerHeader title={title} backFn={backFn} /> : <InnerHeaderLink title={title} backURL={backURL} />)}
-      {type === "home" && <MainHeader name={user} />}
+      {type === "home" && <MainHeader/>}
       <div className={`${pageStyles.container} full-height`}>
         {showPreloader && <div className={pageStyles.preloader}></div>}
         {!showPreloader && children}
@@ -50,9 +52,9 @@ const InnerHeader = ({ title, backFn }) => {
   );
 }
 
-const MainHeader = ({ name }) => {
+const MainHeader = () => {
   const { SignOut } = useAuth();
-  const { setUser, setWallets } = useUser();
+  const { user, setUser, setWallets } = useUser();
 
   const logOut = () => {
     setUser(null);
@@ -60,17 +62,28 @@ const MainHeader = ({ name }) => {
     SignOut();
   }
 
+  const refresh = event => {
+    event.preventDefault();
+    setUser(null);
+    setWallets([]);
+  }
+
   return (
     <div className={pageStyles.header}>
       <div className={`${pageStyles.container} ${pageStyles.headerContainer}`}>
         <div className={pageStyles.userbar}>
           <img src="static/userpic.svg" />
-          <div className={pageStyles.name}>{name}</div>
+          <div className={pageStyles.name}>{user?.agent?.full_name}</div>
         </div>
         {/*  to="/settings" */}
+        <div className={pageStyles.icons}>
+        <Link onClick={refresh} className={pageStyles.iconLink}>
+          <img src={refreshButton} />
+        </Link>
         <Link onClick={logOut} className={pageStyles.iconLink}>
           <img src={logoutIcon} />
-        </Link>
+        </Link>          
+        </div>      
       </div>
     </div>
   );

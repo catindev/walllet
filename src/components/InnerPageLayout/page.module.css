@@ -53,6 +53,10 @@
   line-height: normal;
 }
 
+.icons {
+  display: flex;
+  gap: 1.5em;
+}
 
 .iconLink {
   display: inline-block;
