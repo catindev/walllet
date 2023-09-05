@@ -13,7 +13,7 @@ const InnerPageLayout = ({
   return (
     <div className={`${pageStyles.page} full-height`}>
       {type === "inner" && (backFn !== false ? <InnerHeader title={title} backFn={backFn} /> : <InnerHeaderLink title={title} backURL={backURL} />)}
-      {type === "home" && <MainHeader/>}
+      {type === "home" && <MainHeader />}
       <div className={`${pageStyles.container} full-height`}>
         {showPreloader && <div className={pageStyles.preloader}></div>}
         {!showPreloader && children}
@@ -77,13 +77,13 @@ const MainHeader = () => {
         </div>
         {/*  to="/settings" */}
         <div className={pageStyles.icons}>
-        <Link onClick={refresh} className={pageStyles.iconLink}>
-          <img src={refreshButton} />
-        </Link>
-        <Link onClick={logOut} className={pageStyles.iconLink}>
-          <img src={logoutIcon} />
-        </Link>          
-        </div>      
+          <a onClick={refresh} className={pageStyles.iconLink}>
+            <img src={refreshButton} />
+          </a>
+          <a onClick={logOut} className={pageStyles.iconLink}>
+            <img src={logoutIcon} />
+          </a>
+        </div>
       </div>
     </div>
   );

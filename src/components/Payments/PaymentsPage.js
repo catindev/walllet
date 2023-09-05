@@ -5,7 +5,7 @@ import InnerPageLayout from "components/InnerPageLayout/InnerPageLayout";
 import formStyles from "components/Form/form.module.css";
 import menuStyles from "components/BottomSheetMenuList/bottomSheetMenuList.module.css";
 
-const WithdrawalPage = () => {
+const PaymentsPage = () => {
   const { isAuthenticated } = useAuth();
 
   if (!isAuthenticated) {
@@ -13,21 +13,22 @@ const WithdrawalPage = () => {
   }
 
   return (
-    <InnerPageLayout title="Перевести" backURL="/wallets">
+    <InnerPageLayout title="Оплатить" backURL="/wallets">
       <div className={formStyles.wrapper}>
       <form className={formStyles.form}>
         <div className={formStyles.header}>
-          <h1>Куда хотите отправить перевод?</h1>
+          <h1>Оплатить</h1>
+          <h2>Оплачивайте услуги или покупки у наших партнеров по реквизитам счета</h2>
         </div>
         <ul className={menuStyles.menu}>
           <li>
             <Link to="/withdrawal/to/wallet">
-              На другой кошелёк
+              Платежи
             </Link>
           </li>
           <li>
             <Link to="/withdrawal/to/card">
-              На карту банка
+              Оплата по номеру счёта
             </Link>
           </li>
         </ul>
@@ -37,4 +38,4 @@ const WithdrawalPage = () => {
   );
 };
 
-export default WithdrawalPage;
+export default PaymentsPage;

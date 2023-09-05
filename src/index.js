@@ -19,7 +19,8 @@ import CheckCode from "./components/Sign/SignUp/CheckCodePage";
 import Registration from "components/Sign/SignUp/RegistrationPage";
 import Wallets from "./components/Wallets/WalletsPage";
 import WithdrawalPage from "./components/Withdrawal/WithdrawalPage";
-import ToWallet from "./components/Withdrawal/ToWallet";
+import PaymentsPage from "components/Payments/PaymentsPage";
+import ToWalletPage from "./components/Withdrawal/ToWalletPage";
 import IdentityPage from "components/Identity/IdentityPage";
 import PlugPage from "components/Plug/PlugPage";
 
@@ -53,12 +54,12 @@ function App() {
         <Route path="/wallet/:id" element={<PlugPage />} />
         <Route path="/identity" element={<IdentityPage />} />
         <Route path="/topup" element={<PlugPage />} />
-        <Route path="/withdrawal" element={<PlugPage />} />
-        <Route path="/withdrawal/to/wallet" element={<ToWallet />} />
+        <Route path="/withdrawal" element={<WithdrawalPage />} />
+        <Route path="/withdrawal/to/wallet" element={<ToWalletPage />} />
         <Route path="/withdrawal/to/card" element={<PlugPage />} />
+        <Route path="/payments" element={<PaymentsPage />} />
+        <Route path="/payments/catalog" element={<PlugPage />} />
         <Route path="/invoice" element={<PlugPage />} />
-        <Route path="/payments" element={<PlugPage />} />
-        <Route path="/payments" element={<PlugPage />} />
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </div>
