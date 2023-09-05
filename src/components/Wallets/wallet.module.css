@@ -122,6 +122,7 @@
         transition: all 0.2s ease;
     } 
     .wallet:hover {
-        box-shadow: 0px 3px 10px 0px rgba(158, 157, 189, 0.25);
+        box-shadow: 0px 0px 0px .2em rgba(158, 157, 189, .5);
+        /* box-shadow: 0px 3px 10px 0px rgba(158, 157, 189, .25); */
     } 
 }

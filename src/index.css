@@ -30,9 +30,8 @@ body {
   height: var(--full-height);
   min-height: var(--full-height);
 }
-/* a blue color as a generic focus style */
 button:focus-visible {
-  outline: 2px solid #4a90e2 !important;
+  outline: 2px solid rgba(158, 157, 189, .5) !important;
   outline: -webkit-focus-ring-color auto 5px !important;
 }
 a {

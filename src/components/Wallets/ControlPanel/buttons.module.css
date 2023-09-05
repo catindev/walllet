@@ -32,9 +32,12 @@
 
     .button {
         box-shadow: none;
+        border: 2px solid rgba(89, 91, 121, .1);
         transition: all 0.2s ease;
     } 
     .button:hover {
-        box-shadow: 0px 3px 10px 0px rgba(158, 157, 189, 0.25);
+        /* box-shadow: 0px 3px 10px 0px rgba(158, 157, 189, 0.25); */
+        box-shadow: 0px 0px 0px .25em rgba(158, 157, 189, .5);
+        border-color: transparent;
     } 
 }
